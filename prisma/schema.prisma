@@ -36,7 +36,7 @@ model User {
 
   phone     String?
   address   String?
-  role      Role       @default(USER)
+  role      Role      @default(USER)
   status    UserStatus @default(ACTIVE)
   provider Provider?
   orders    Order[]
