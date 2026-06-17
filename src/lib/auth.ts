@@ -8,7 +8,7 @@ export enum UserRole{
   PROVIDER="PROVIDER",
   ADMIN="ADMIN"
 }
-
+ 
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {

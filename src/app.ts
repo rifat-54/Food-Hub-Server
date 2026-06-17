@@ -24,7 +24,7 @@ app.all("/api/auth/*splat",toNodeHandler(auth))
 
 // ! here will be all route
 
-
+app.use("/api/v1")
 
 
 // default route
