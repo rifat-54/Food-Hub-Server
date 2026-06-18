@@ -5,6 +5,6 @@ import auth from "../../middleware/auth"
 
 const router=express.Router()
 
-router.post("/menu",auth,providerController.createMenu)
+router.post("/menu",auth(),providerController.createMenu)
 
 export const providerRouter=router
