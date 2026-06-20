@@ -6,9 +6,10 @@ import { menuController } from "./menu.controller"
 
 const router=express.Router()
 
-router.post("/",auth(userRole.PROVIDER),menuController.createMenu)
 router.get("/",menuController.getAllMenu)
 router.get("/:id",menuController.getMenuById)
+router.patch("/:id",menuController.updateMenu)
+router.post("/",auth(userRole.PROVIDER),menuController.createMenu)
 
 
 export const menuRouter=router

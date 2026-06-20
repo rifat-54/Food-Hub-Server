@@ -45,22 +45,7 @@ const getAllProvider=async()=>{
 }
 
 const getProviderById=async(id:string)=>{
-    // const result=await prisma.provider.findMany({
-    //     select:{
-    //         restaurantName:true,
-    //         description:true,
-    //         image:true,
-    //         createdAt:true
-    //         ,
-    //         user:{
-    //             select:{
-    //                 name:true,
-    //                 image:true
-    //             }
-    //         },
-    //         // meals:true
-    //     }
-    // })
+
 
     const result=await prisma.provider.findUniqueOrThrow({
         where:{
@@ -86,6 +71,8 @@ const getProviderById=async(id:string)=>{
 
     return result
 }
+
+
 
 export const providerServices = {
   createProvider,

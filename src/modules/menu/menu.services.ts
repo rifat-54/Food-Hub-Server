@@ -10,6 +10,16 @@ interface CreateMealPayload {
   categoryId: string;
 }
 
+export type UpdateMealPayload = {
+  name?: string;
+  description?: string;
+  price?: number;
+  image?: string;
+  cuisine?: string;
+  dietaryType?: string;
+  categoryId?: string;
+};
+
 const createMenu = async (data: CreateMealPayload, userId: string) => {
   console.log(userId);
   console.log(data);
@@ -114,8 +124,21 @@ const getMenuById=async(id:string)=>{
   return result
 }
 
+const updateMenu=async(data:UpdateMealPayload,id:string)=>{
+
+  const result=await prisma.meal.update({
+    where:{
+      id
+    },
+    data
+  })
+  
+  return result
+}
+
 export const menuServices = {
   createMenu,
   getAllMenu,
-  getMenuById
+  getMenuById,
+  updateMenu
 };

@@ -44,11 +44,27 @@ const getMenuById=async(req:Request,res:Response,next:NextFunction) =>{
     }
 }
 
+const updateMenu=async(req:Request,res:Response,next:NextFunction) =>{
+
+    try {
+
+        const id=req.params.id
+
+        const result=await menuServices.updateMenu(req.body,id as string)
+
+        res.status(201).json(result)
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 
 
 export const menuController={
     createMenu,
     getAllMenu,
-    getMenuById
+    getMenuById,
+    updateMenu
 }
