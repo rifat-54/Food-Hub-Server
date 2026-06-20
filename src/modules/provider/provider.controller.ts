@@ -20,6 +20,22 @@ const createProvider = async (
   }
 };
 
+const getAllProvider = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+
+    const result = await providerServices.getAllProvider();
+
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const providerController = {
   createProvider,
+  getAllProvider,
 };

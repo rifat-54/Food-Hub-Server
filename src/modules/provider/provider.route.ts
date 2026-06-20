@@ -5,6 +5,7 @@ import auth, { userRole } from "../../middleware/auth"
 
 const router=express.Router()
 
-router.post("/create",auth(userRole.PROVIDER),providerController.createProvider)
+router.get("/",providerController.getAllProvider)
+router.post("/",auth(userRole.PROVIDER),providerController.createProvider)
 
 export const providerRouter=router

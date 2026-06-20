@@ -21,6 +21,29 @@ const createProvider = async (data: createProviderPayload, userId: string) => {
   return result;
 };
 
+
+const getAllProvider=async()=>{
+    const result=await prisma.provider.findMany({
+        select:{
+            restaurantName:true,
+            description:true,
+            image:true,
+            createdAt:true
+            ,
+            user:{
+                select:{
+                    name:true,
+                    image:true
+                }
+            },
+            meals:true
+        }
+    })
+
+    return result
+}
+
 export const providerServices = {
   createProvider,
+  getAllProvider
 };
