@@ -124,13 +124,71 @@ const getMenuById=async(id:string)=>{
   return result
 }
 
-const updateMenu=async(data:UpdateMealPayload,id:string)=>{
+const updateMenu=async(data:UpdateMealPayload,menuId:string,userId:string)=>{
+
+  const menu=await prisma.meal.findUniqueOrThrow({
+    where:{
+      id:menuId
+    },
+    select:{
+      provider:{
+        select:{
+          user:{
+            select:{
+              id:true
+            }
+          }
+        }
+      }
+    }
+  })
+
+  const provider=menu.provider.user.id
+
+  if(provider!==userId){
+    throw new Error("Forbidden Access!")
+  }
+  
+
 
   const result=await prisma.meal.update({
     where:{
-      id
+      id:menuId
     },
     data
+  })
+  
+  return result
+}
+
+const deleteMenu=async(menuId:string,userId:string)=>{
+    const menu=await prisma.meal.findUniqueOrThrow({
+    where:{
+      id:menuId
+    },
+    select:{
+      provider:{
+        select:{
+          user:{
+            select:{
+              id:true
+            }
+          }
+        }
+      }
+    }
+  })
+
+  const provider=menu.provider.user.id
+
+  if(provider!==userId){
+    throw new Error("Forbidden Access!")
+  }
+
+  const result=await prisma.meal.delete({
+    where:{
+      id:menuId
+    }
   })
   
   return result
@@ -140,5 +198,6 @@ export const menuServices = {
   createMenu,
   getAllMenu,
   getMenuById,
-  updateMenu
+  updateMenu,
+  deleteMenu
 };

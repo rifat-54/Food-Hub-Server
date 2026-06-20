@@ -8,7 +8,8 @@ const router=express.Router()
 
 router.get("/",menuController.getAllMenu)
 router.get("/:id",menuController.getMenuById)
-router.patch("/:id",menuController.updateMenu)
+router.patch("/:id",auth(userRole.PROVIDER),menuController.updateMenu)
+router.delete("/:id",auth(userRole.PROVIDER),menuController.deleteMenu)
 router.post("/",auth(userRole.PROVIDER),menuController.createMenu)
 
 

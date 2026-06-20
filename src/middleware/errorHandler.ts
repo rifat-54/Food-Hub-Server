@@ -13,6 +13,10 @@ function errorHandler(
   let errorMessage = "Internal Server Error";
   let errorDetails = err;
 
+  if(err instanceof Error){
+    errorMessage=err.message
+  }
+
   if (err instanceof Prisma.PrismaClientValidationError) {
     statusCode = 400;
     errorMessage = "You provided incorrect type or missing fields";

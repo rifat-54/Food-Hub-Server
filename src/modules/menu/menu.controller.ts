@@ -50,7 +50,26 @@ const updateMenu=async(req:Request,res:Response,next:NextFunction) =>{
 
         const id=req.params.id
 
-        const result=await menuServices.updateMenu(req.body,id as string)
+        const userId=req?.user?.id as string
+
+        const result=await menuServices.updateMenu(req.body,id as string,userId)
+
+        res.status(201).json(result)
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+const deleteMenu=async(req:Request,res:Response,next:NextFunction) =>{
+
+    try {
+
+        const id=req.params.id
+
+        const userId=req?.user?.id as string
+
+        const result=await menuServices.deleteMenu(id as string,userId)
 
         res.status(201).json(result)
 
@@ -66,5 +85,6 @@ export const menuController={
     createMenu,
     getAllMenu,
     getMenuById,
-    updateMenu
+    updateMenu,
+    deleteMenu
 }
