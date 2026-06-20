@@ -13,7 +13,20 @@ const getAllUser=async(req:Request,res:Response,next:NextFunction)=>{
         next(error)
     }
 }
+const updateStatus=async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+        const id=req.params.id as string
+        const result=await authServices.updateStatus(req.body,id)
+        res.status(200).json({
+            success:true,
+            data:result
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 
 export const authController={
-    getAllUser
+    getAllUser,
+    updateStatus
 }

@@ -6,5 +6,6 @@ const router=Router()
 
 
 router.get("/",auth(userRole.ADMIN),authController.getAllUser)
+router.patch("/:id",auth(userRole.ADMIN),authController.updateStatus)
 
 export const authRouter=router
