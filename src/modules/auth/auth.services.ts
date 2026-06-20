@@ -42,7 +42,17 @@ const updateStatus=async(data:updatedStatus,id:string)=>{
      return result
 }
 
+const getuser=async(id:string)=>{
+    const result=await prisma.user.findUniqueOrThrow({
+        where:{
+            id
+        }
+    })
+    return result
+}
+
 export const authServices={
     getAllUser,
-    updateStatus
+    updateStatus,
+    getuser
 }
