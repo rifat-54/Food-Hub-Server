@@ -35,7 +35,25 @@ const getAllProvider = async (
   }
 };
 
+const getProviderById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+
+    const id=req.params.id as string
+
+    const result = await providerServices.getProviderById(id);
+
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const providerController = {
   createProvider,
   getAllProvider,
+  getProviderById
 };
