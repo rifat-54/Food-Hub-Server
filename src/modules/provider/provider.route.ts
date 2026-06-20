@@ -1,10 +1,10 @@
 import express from "express"
 import { providerController } from "./provider.controller"
-import auth from "../../middleware/auth"
+import auth, { userRole } from "../../middleware/auth"
 
 
 const router=express.Router()
 
-router.post("/menu",auth(),providerController.createMenu)
+router.post("/create",auth(userRole.PROVIDER),providerController.createProvider)
 
 export const providerRouter=router

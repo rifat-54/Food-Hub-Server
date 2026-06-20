@@ -108,6 +108,8 @@ model Provider {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([userId])
+
 }
 
 model Category {
@@ -120,20 +122,7 @@ model Category {
   meals Meal[]
 }
 
-enum Cuisine {
-  BANGLADESHI
-  INDIAN
-  CHINESE
-  ITALIAN
-  MEXICAN
-}
 
-enum DietaryType {
-  HALAL
-  VEGAN
-  VEGETARIAN
-  REGULAR
-}
 
 model Meal {
   id          String      @id @default(uuid())
@@ -141,8 +130,8 @@ model Meal {
   description String
   price       Float
   image       String?
-  cuisine     Cuisine
-  dietaryType DietaryType
+  cuisine     String?
+  dietaryType String?
 
   providerId String
   categoryId String

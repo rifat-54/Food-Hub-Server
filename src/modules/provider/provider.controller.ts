@@ -1,19 +1,25 @@
-import { NextFunction, Request,Response } from "express"
-import { providerServices } from "./provider.services"
+import { NextFunction, Request, Response } from "express";
+import { providerServices } from "./provider.services";
 
-const createMenu=async(req:Request,res:Response,next:NextFunction) =>{
+const createProvider = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.user?.id;
 
-    try {
-        const result=await providerServices.createMenu()
+    const result = await providerServices.createProvider(
+      req.body,
+      id as string,
+    );
 
-        res.status(201).json(result)
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 
-    } catch (error) {
-        next(error)
-    }
-}
-
-
-export const providerController={
-    createMenu
-}
+export const providerController = {
+  createProvider,
+};
