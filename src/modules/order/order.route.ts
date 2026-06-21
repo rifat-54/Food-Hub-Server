@@ -5,5 +5,6 @@ import { orderController } from "./order.controller";
 const router=Router()
 
 router.post("/",auth(userRole.USER,userRole.ADMIN,userRole.PROVIDER),orderController.createOrder)
+router.get("/",auth(userRole.USER,userRole.ADMIN,userRole.PROVIDER),orderController.getUserOrders)
 
 export const orderRouter=router
