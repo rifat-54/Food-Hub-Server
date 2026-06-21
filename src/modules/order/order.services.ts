@@ -90,7 +90,36 @@ const getUserOrders=async(id:string)=>{
     return result
 }
 
+const getOrderDetails=async(id:string)=>{
+    const result=await prisma.order.findUniqueOrThrow({
+        where:{
+            id
+        },
+        include:{
+            orderItems:{
+                select:{
+                    quantity:true,
+                    unitPrice:true,
+                    meal:{
+                        select:{
+                            name:true
+                        }
+                    }
+                }
+            },
+            user:{
+                select:{
+                    name:true,
+                    image:true
+                }
+            }
+        }
+    })
+    return result
+}
+
 export const orderServices={
     createOrder,
-    getUserOrders
+    getUserOrders,
+    getOrderDetails
 }
