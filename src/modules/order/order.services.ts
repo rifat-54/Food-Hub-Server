@@ -1,125 +1,168 @@
-import { prisma } from "../../lib/prisma"
+import { OrderStatus } from "../../../generated/prisma/enums";
+import { prisma } from "../../lib/prisma";
+import { userRole } from "../../middleware/auth";
 
-type createOrderPayload={
-    deliveryAddress:string,
-    items:{
-        mealId:string,
-        quantity:number
-    }[]
-}
+type createOrderPayload = {
+  deliveryAddress: string;
+  items: {
+    mealId: string;
+    quantity: number;
+  }[];
+};
 
-const createOrder=async(userId:string,data:createOrderPayload)=>{
-    
-    const mealIds=data.items.map((item)=>item.mealId)
-    console.log(mealIds)
-    const meals=await prisma.meal.findMany({
-        where:{
-            id:{
-                in:mealIds
-            }
-        }
-    })
+const createOrder = async (userId: string, data: createOrderPayload) => {
+  const mealIds = data.items.map((item) => item.mealId);
+  console.log(mealIds);
+  const meals = await prisma.meal.findMany({
+    where: {
+      id: {
+        in: mealIds,
+      },
+    },
+  });
 
-    let totalAmount=0;
+  let totalAmount = 0;
 
-    const orderItemData=data.items.map((item)=>{
-        const meal=meals.find(meal=>meal.id===item.mealId)
-        if(!meal){
-            throw new Error("Meal not found")
-        }
-        totalAmount+=meal.price*item.quantity
+  const orderItemData = data.items.map((item) => {
+    const meal = meals.find((meal) => meal.id === item.mealId);
+    if (!meal) {
+      throw new Error("Meal not found");
+    }
+    totalAmount += meal.price * item.quantity;
 
-        return{
-            mealId:meal.id,
-            quantity:item.quantity,
-            unitPrice:meal.price
-        }
-    })
+    return {
+      mealId: meal.id,
+      quantity: item.quantity,
+      unitPrice: meal.price,
+    };
+  });
 
-    const result=await prisma.$transaction(async tx =>{
-        const order=await tx.order.create({
-            data:{
-                userId,
-                deliveryAddress:data.deliveryAddress,
-                totalAmount
-            }
-        })
+  const result = await prisma.$transaction(async (tx) => {
+    const order = await tx.order.create({
+      data: {
+        userId,
+        deliveryAddress: data.deliveryAddress,
+        totalAmount,
+      },
+    });
 
-        await tx.orderItem.createMany({
-            data:orderItemData.map(item=>({
-                orderId:order.id,
-                mealId:item.mealId,
-                quantity:item.quantity,
-                unitPrice:item.unitPrice
-            }))
-        })
+    await tx.orderItem.createMany({
+      data: orderItemData.map((item) => ({
+        orderId: order.id,
+        mealId: item.mealId,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+      })),
+    });
 
-        return order;
-    })
+    return order;
+  });
 
-    // console.log("meals -> ",meals)
-    return result
-}
+  // console.log("meals -> ",meals)
+  return result;
+};
 
-
-const getUserOrders=async(id:string)=>{
-    const result=await prisma.order.findMany({
-        where:{
-            userId:id
-        },
-        include:{
-            orderItems:{
-                select:{
-                    quantity:true,
-                    unitPrice:true,
-                    meal:{
-                        select:{
-                            name:true
-                        }
-                    }
-                }
+const getUserOrders = async (id: string) => {
+  const result = await prisma.order.findMany({
+    where: {
+      userId: id,
+    },
+    include: {
+      orderItems: {
+        select: {
+          quantity: true,
+          unitPrice: true,
+          meal: {
+            select: {
+              name: true,
             },
-            user:{
-                select:{
-                    name:true,
-                    image:true
-                }
-            }
-        }
-    })
-    return result
-}
-
-const getOrderDetails=async(id:string)=>{
-    const result=await prisma.order.findUniqueOrThrow({
-        where:{
-            id
+          },
         },
-        include:{
-            orderItems:{
-                select:{
-                    quantity:true,
-                    unitPrice:true,
-                    meal:{
-                        select:{
-                            name:true
-                        }
-                    }
-                }
-            },
-            user:{
-                select:{
-                    name:true,
-                    image:true
-                }
-            }
-        }
-    })
-    return result
-}
+      },
+      user: {
+        select: {
+          name: true,
+          image: true,
+        },
+      },
+    },
+    orderBy:{
+      createdAt:"desc"
+    }
+  });
+  return result;
+};
 
-export const orderServices={
-    createOrder,
-    getUserOrders,
-    getOrderDetails
-}
+const getOrderDetails = async (id: string) => {
+  const result = await prisma.order.findUniqueOrThrow({
+    where: {
+      id,
+    },
+    include: {
+      orderItems: {
+        select: {
+          quantity: true,
+          unitPrice: true,
+          meal: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+      user: {
+        select: {
+          name: true,
+          image: true,
+        },
+      },
+    },
+  });
+  return result;
+};
+
+const updateOrderStatus = async (
+  data: { status: OrderStatus },
+  id: string,
+  user: { role: string; id: string },
+) => {
+  console.log(user);
+
+  const order = await prisma.order.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  console.log(order);
+
+  if (user.role === userRole.USER && user.id !== order.userId) {
+    throw new Error("Forbidden Access!");
+  }
+
+  if (order.status === data.status) {
+    throw new Error(`Status already updated to ${data.status}`);
+  }
+
+  if (user.role === userRole.USER && order.status !== OrderStatus.PLACED) {
+    throw new Error("Now you can't Update status!");
+  }
+
+
+
+  const result = await prisma.order.update({
+    where: {
+      id,
+    },
+    data,
+  });
+
+  return result;
+};
+
+export const orderServices = {
+  createOrder,
+  getUserOrders,
+  getOrderDetails,
+  updateOrderStatus,
+};

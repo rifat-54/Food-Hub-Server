@@ -73,9 +73,41 @@ const getProviderById=async(id:string)=>{
 }
 
 
+const providerMeals=async(id:string)=>{
+
+   
+
+    console.log("console")
+        const result=await prisma.provider.findUniqueOrThrow({
+        where:{
+            userId:id
+        },
+        select:{
+            id:true,
+            restaurantName:true,
+            description:true,
+            address:true,
+            image:true,
+            createdAt:true,
+            meals:true,
+            user:{
+                select:{
+                    name:true,
+                    image:true
+                }
+            }
+        }
+    
+    })
+console.log(result)
+    return result
+}
+
+
 
 export const providerServices = {
   createProvider,
   getAllProvider,
-  getProviderById
+  getProviderById,
+  providerMeals
 };

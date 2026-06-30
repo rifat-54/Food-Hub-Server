@@ -30,6 +30,8 @@ const createMenu = async (data: CreateMealPayload, userId: string) => {
     },
   });
 
+  // console.log("pro -> ",provider,userId)
+
   if(!provider){
     throw new Error("Provider not exit")
   }
@@ -68,6 +70,7 @@ const getAllMenu = async () => {
       },
       provider: {
         select: {
+          id:true,
           restaurantName: true,
           description: true,
           address: true,
