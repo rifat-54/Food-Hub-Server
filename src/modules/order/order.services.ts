@@ -160,9 +160,46 @@ const updateOrderStatus = async (
   return result;
 };
 
+const getProviderOrders=async(providerUserId:string)=>{
+
+  const provider=await prisma.provider.findUniqueOrThrow({
+    where:{
+      userId:providerUserId
+    }
+  })
+
+  // console.log(provider)
+
+  const result=await prisma.order.findMany({
+    where:{
+      orderItems:{
+       some:{
+        meal:{
+          providerId:provider.id
+        }
+       }
+      }
+    },
+    include:{
+      user:true,
+      _count:{
+        select:{
+          orderItems:true
+        }
+      }
+    },
+    orderBy:{
+      createdAt:"desc"
+    }
+  })
+
+  return result
+}
+
 export const orderServices = {
   createOrder,
   getUserOrders,
   getOrderDetails,
   updateOrderStatus,
+  getProviderOrders
 };
