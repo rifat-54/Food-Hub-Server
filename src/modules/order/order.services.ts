@@ -148,6 +148,14 @@ const updateOrderStatus = async (
     throw new Error("Now you can't Update status!");
   }
 
+  if (order.status=== OrderStatus.CANCELLED) {
+    throw new Error("Order is Cancelled! Now you can't Update status!");
+  }
+
+  if (order.status=== OrderStatus.DELIVERED) {
+    throw new Error("Order is Delivered! Now you can't Update status!");
+  }
+
 
 
   const result = await prisma.order.update({
