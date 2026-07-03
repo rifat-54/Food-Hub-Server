@@ -22,8 +22,20 @@ const getAllCategory=async(req:Request,res:Response,next:NextFunction)=>{
         next(error)
     }
 }
+const deleteCategory=async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+        const id=req.params.id as string
+        const result=await categoryServices.deleteCategory(id)
+
+        res.status(201).json(result)
+
+    } catch (error) {
+        next(error)
+    }
+}
 
 export const categoryController={
     createCategory,
-    getAllCategory
+    getAllCategory,
+    deleteCategory
 }
