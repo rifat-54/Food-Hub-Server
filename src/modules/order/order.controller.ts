@@ -65,11 +65,21 @@ const getProviderOrders=async(req:Request,res:Response,next:NextFunction)=>{
     }
 }
 
+const getAllOrders=async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+        const result=await orderServices.getAllOrders()
+        res.status(201).json(result)
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 export const orderController={
     createOrder,
     getUserOrders,
     getOrderDetails,
     updateOrderStatus,
-    getProviderOrders
+    getProviderOrders,
+    getAllOrders
 }

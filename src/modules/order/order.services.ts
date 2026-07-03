@@ -93,6 +93,34 @@ const getUserOrders = async (id: string) => {
   return result;
 };
 
+const getAllOrders = async () => {
+  const result=await prisma.order.findMany({
+    select:{
+      id:true,
+      totalAmount:true,
+      status:true,
+      createdAt:true,
+      deliveryAddress:true,
+      user:{
+        select:{
+          name:true
+        }
+      },
+      _count:{
+        select:{
+          orderItems:true
+        }
+      }
+      
+    },
+    orderBy:{
+      createdAt:"desc"
+    }
+  })
+  return result
+ 
+};
+
 const getOrderDetails = async (id: string) => {
   const result = await prisma.order.findUniqueOrThrow({
     where: {
@@ -209,5 +237,6 @@ export const orderServices = {
   getUserOrders,
   getOrderDetails,
   updateOrderStatus,
-  getProviderOrders
+  getProviderOrders,
+  getAllOrders
 };
