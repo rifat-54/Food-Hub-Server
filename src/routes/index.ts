@@ -4,6 +4,7 @@ import { categoryRouter } from "../modules/category/category.route";
 import { menuRouter } from "../modules/menu/menu.route";
 import { authRouter } from "../modules/auth/auth.route";
 import { orderRouter } from "../modules/order/order.route";
+import { reviewRouter } from "../modules/review/review.route";
 
 
 const router=Router()
@@ -17,5 +18,7 @@ router.use("/menu",menuRouter)
 router.use("/user",authRouter)
 
 router.use("/orders",orderRouter)
+
+router.use("/review",reviewRouter)
 
 export default router;

@@ -74,7 +74,9 @@ const getUserOrders = async (id: string) => {
           unitPrice: true,
           meal: {
             select: {
-              name: true,
+              id:true,
+              name: true
+              
             },
           },
         },
@@ -133,6 +135,7 @@ const getOrderDetails = async (id: string) => {
           unitPrice: true,
           meal: {
             select: {
+              id:true,
               name: true,
             },
           },
