@@ -18,9 +18,16 @@ const createMenu=async(req:Request,res:Response,next:NextFunction) =>{
 
 const getAllMenu=async(req:Request,res:Response,next:NextFunction) =>{
 
+    const search=req.query.search as string
+    const category=req.query.category as string
+    const cuisine=req.query.cuisine as string
+    const dietary=req.query.dietary as string
+
+    console.log(search,category)
+
     try {
 
-        const result=await menuServices.getAllMenu()
+        const result=await menuServices.getAllMenu({search,category,cuisine,dietary})
 
         res.status(201).json(result)
 

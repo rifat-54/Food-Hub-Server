@@ -8,7 +8,7 @@ async function seedAdmin(){
     console.log("**********  start admin creation **********")
 
     const adminData={
-        name:"admin",
+        name:"Hasan Ali",
         email:"admin@gmail.com",
         password:"Admin@123",
         role:UserRole.ADMIN

@@ -10,7 +10,7 @@ const router=express.Router()
 router.get("/",providerController.getAllProvider)
 router.get("/allmeals",auth(userRole.PROVIDER),providerController.providerMeals)
 router.get("/:id",providerController.getProviderById)
-router.post("/",auth(userRole.PROVIDER),providerController.createProvider)
+router.post("/",auth(userRole.PROVIDER,userRole.USER),providerController.createProvider)
 
 
 export const providerRouter=router

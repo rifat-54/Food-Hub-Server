@@ -184,7 +184,7 @@ model OrderItem {
   unitPrice Float
 
   order Order @relation(fields: [orderId], references: [id])
-  meal  Meal  @relation(fields: [mealId], references: [id])
+  meal  Meal  @relation(fields: [mealId], references: [id],onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -200,7 +200,7 @@ model Review {
   comment String
 
   user User @relation(fields: [userId], references: [id])
-  meal Meal @relation(fields: [mealId], references: [id])
+  meal Meal @relation(fields: [mealId], references: [id],onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

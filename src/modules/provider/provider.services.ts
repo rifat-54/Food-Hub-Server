@@ -1,3 +1,4 @@
+import { UserRole } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 
 interface createProviderPayload {
@@ -11,6 +12,8 @@ const createProvider = async (data: createProviderPayload, userId: string) => {
   console.log(data);
   console.log(userId);
 
+
+
   const result = await prisma.provider.create({
     data: {
       ...data,
@@ -18,6 +21,16 @@ const createProvider = async (data: createProviderPayload, userId: string) => {
     },
   });
 
+  await prisma.user.update({
+    where:{
+        id:userId
+    },
+    data:{
+        role:UserRole.PROVIDER
+    }
+  })
+
+  console.log(result)
   return result;
 };
 

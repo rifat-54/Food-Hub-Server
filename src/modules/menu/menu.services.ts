@@ -1,3 +1,4 @@
+import { MealWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
 
 interface CreateMealPayload {
@@ -52,8 +53,65 @@ const createMenu = async (data: CreateMealPayload, userId: string) => {
   return result;
 };
 
-const getAllMenu = async () => {
+type MealProps={
+  search?:string,
+  category?:string,
+  cuisine?:string,
+  dietary?:string
+}
+
+const getAllMenu = async (payload:MealProps) => {
+
+  const andCondition:MealWhereInput[]=[]
+
+  if(payload.search){
+    andCondition.push({
+      OR:[
+        {
+          name:{
+            contains:payload.search as string,
+            mode:"insensitive"
+          }
+        },
+        {
+          description:{
+            contains:payload.search as string,
+            mode:"insensitive"
+          }
+        }
+      ]
+    })
+  }
+
+
+  if(payload.category){
+    andCondition.push({
+      categoryId:payload.category as string
+    })
+  }
+
+  if(payload.cuisine){
+    andCondition.push({
+      cuisine:{
+        contains:payload.cuisine ,
+        mode:"insensitive"
+      },
+    })
+  }
+
+  if(payload.dietary){
+    andCondition.push({
+      dietaryType:{
+        contains:payload.dietary,
+        mode:"insensitive"
+      }
+    })
+  }
+
   const result = await prisma.meal.findMany({
+    where:{
+        AND:andCondition
+    },
     select: {
       id: true,
       name: true,

@@ -5,6 +5,7 @@ import { auth } from "./lib/auth"
 import router from "./routes"
 import { notFound } from "./middleware/notFound"
 import errorHandler from "./middleware/errorHandler"
+import { test } from "./middleware/test"
 
 
 const app=express()
