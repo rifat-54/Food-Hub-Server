@@ -17,7 +17,7 @@ export const auth = betterAuth({
     enabled: true,
   },
   trustedOrigins:[
-     "https://food-hub-client-jtxf1cjzb-rifat-54s-projects.vercel.app",
+     "https://food-hub-client-iota.vercel.app/",
     "http://localhost:3000",
   ],
   socialProviders: {
