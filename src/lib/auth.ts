@@ -17,7 +17,8 @@ export const auth = betterAuth({
     enabled: true,
   },
   trustedOrigins:[
-    "http://localhost:3000"
+     "https://food-hub-client-jtxf1cjzb-rifat-54s-projects.vercel.app",
+    "http://localhost:3000",
   ],
   socialProviders: {
     google: {
