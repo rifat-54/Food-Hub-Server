@@ -1,5 +1,5 @@
 import { toNodeHandler } from "better-auth/node"
-import express from "express"
+import express, { NextFunction,Request,Response } from "express"
 import cors from "cors"
 import { auth } from "./lib/auth"
 import router from "./routes"
@@ -19,7 +19,12 @@ app.use(cors({
 
 
 // better auth
-app.all("/api/auth/*splat",toNodeHandler(auth))
+app.all("/api/auth/*splat",(req:Request,res:Response,next:NextFunction)=>{
+
+    console.log("auth:",req.method,req.path)
+
+     return toNodeHandler(auth)(req, res);
+})
 
 
 
