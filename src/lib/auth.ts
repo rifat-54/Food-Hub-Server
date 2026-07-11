@@ -17,7 +17,7 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
-  baseURL:"https://food-hub-server-p1vh.onrender.com/api/auth",
+  baseURL:process.env.BETTER_AUTH_URL!,
   trustedOrigins: [
     "https://food-hub-client-iota.vercel.app",
     "http://localhost:3000",
