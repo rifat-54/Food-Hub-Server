@@ -56,12 +56,29 @@ export const auth = betterAuth({
   },
 
 
-   advanced: {
-  defaultCookieAttributes: {
-    sameSite: "none",
-    secure: true,
+  // account: { skipStateCookieCheck: true }, // solved redirect issue
+  advanced: {
+    cookies: {
+      session_token: {
+        name: "session_token", // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
+        },
+      },
+      state: {
+        name: "session_token", // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
+        },
+      },
+    },
   },
-},
 
   plugins: [oAuthProxy()],
 });
