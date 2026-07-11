@@ -22,7 +22,12 @@ app.use(
 );
 
 // better auth
-app.all("/api/auth/*splat", toNodeHandler(auth));
+// app.all("/api/auth/*splat", toNodeHandler(auth));
+
+app.all("/api/auth/*splat", (req, res) => {
+  console.log("Cookie:", req.headers.cookie);
+  return toNodeHandler(auth)(req, res);
+});
 
 // app.all("/api/auth/*splat",(req:Request,res:Response,next:NextFunction)=>{
 
