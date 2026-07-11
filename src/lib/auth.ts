@@ -18,13 +18,14 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
+  baseURL:"https://food-hub-client-iota.vercel.app",
+  trustedOrigins: [
+    "https://food-hub-client-iota.vercel.app",
+    "http://localhost:3000",
+  ],
   emailAndPassword: {
     enabled: true,
   },
-  trustedOrigins:[
-     "https://food-hub-client-iota.vercel.app",
-    "http://localhost:3000",
-  ],
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
