@@ -1,6 +1,8 @@
 import { email } from "zod"
-import { UserRole } from "../lib/auth"
-import { prisma } from "../lib/prisma"
+import { UserRole } from "../lib/auth.js"
+import { prisma } from "../lib/prisma.js"
+// import { UserRole } from "../lib/auth"
+// import { prisma } from "../lib/prisma"
 
 
 async function seedAdmin(){

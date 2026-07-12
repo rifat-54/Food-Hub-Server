@@ -1,5 +1,5 @@
 import { Request,Response,NextFunction } from "express"
-import { authServices } from "./auth.services"
+import { authServices } from "./auth.services.js"
 
 
 const getAllUser=async(req:Request,res:Response,next:NextFunction)=>{

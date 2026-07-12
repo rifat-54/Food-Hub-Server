@@ -1,10 +1,16 @@
 import { Router } from "express";
-import { providerRouter } from "../modules/provider/provider.route";
-import { categoryRouter } from "../modules/category/category.route";
-import { menuRouter } from "../modules/menu/menu.route";
-import { authRouter } from "../modules/auth/auth.route";
-import { orderRouter } from "../modules/order/order.route";
-import { reviewRouter } from "../modules/review/review.route";
+import { providerRouter } from "../modules/provider/provider.route.js";
+import { categoryRouter } from "../modules/category/category.route.js";
+import { menuRouter } from "../modules/menu/menu.route.js";
+import { authRouter } from "../modules/auth/auth.route.js";
+import { orderRouter } from "../modules/order/order.route.js";
+import { reviewRouter } from "../modules/review/review.route.js";
+// import { providerRouter } from "../modules/provider/provider.route";
+// import { categoryRouter } from "../modules/category/category.route";
+// import { menuRouter } from "../modules/menu/menu.route";
+// import { authRouter } from "../modules/auth/auth.route";
+// import { orderRouter } from "../modules/order/order.route";
+// import { reviewRouter } from "../modules/review/review.route";
 
 
 const router=Router()

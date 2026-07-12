@@ -1,5 +1,5 @@
 import { string } from "zod"
-import { prisma } from "../../lib/prisma"
+import { prisma } from "../../lib/prisma.js"
 
 interface createCategoryPayload{
     name:string

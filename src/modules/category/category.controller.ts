@@ -1,5 +1,5 @@
 import { Request,Response,NextFunction } from "express"
-import { categoryServices } from "./category.services"
+import { categoryServices } from "./category.services.js"
 
 const createCategory=async(req:Request,res:Response,next:NextFunction)=>{
     try {

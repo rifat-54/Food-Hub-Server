@@ -1,11 +1,18 @@
 import { toNodeHandler } from "better-auth/node";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
-import { auth } from "./lib/auth";
-import router from "./routes";
-import { notFound } from "./middleware/notFound";
-import errorHandler from "./middleware/errorHandler";
-import { test } from "./middleware/test";
+
+// import router from "./routes/index";
+// import { notFound } from "./middleware/notFound";
+// import errorHandler from "./middleware/errorHandler";
+import { auth } from "./lib/auth.js";
+import router from "./routes/index.js";
+import { notFound } from "./middleware/notFound.js";
+import errorHandler from "./middleware/errorHandler.js";
+
+
+
+
 
 const app = express();
 
@@ -22,12 +29,12 @@ app.use(
 );
 
 // better auth
-// app.all("/api/auth/*splat", toNodeHandler(auth));
+app.all("/api/auth/*splat", toNodeHandler(auth));
 
-app.all("/api/auth/*splat", (req, res) => {
-  console.log("Cookie:", req.headers.cookie);
-  return toNodeHandler(auth)(req, res);
-});
+// app.all("/api/auth/*splat", (req, res) => {
+//   console.log("Cookie:", req.headers.cookie);
+//   return toNodeHandler(auth)(req, res);
+// });
 
 // app.all("/api/auth/*splat",(req:Request,res:Response,next:NextFunction)=>{
 

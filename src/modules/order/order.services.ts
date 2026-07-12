@@ -1,6 +1,7 @@
-import { OrderStatus } from "../../../generated/prisma/enums";
-import { prisma } from "../../lib/prisma";
-import { userRole } from "../../middleware/auth";
+// import { OrderStatus } from "../../../generated/prisma/enums.js";
+import { OrderStatus } from "../../../generated/prisma/enums.js";
+import { prisma } from "../../lib/prisma.js";
+import { userRole } from "../../middleware/auth.js";
 
 type createOrderPayload = {
   deliveryAddress: string;
@@ -24,7 +25,7 @@ const createOrder = async (userId: string, data: createOrderPayload) => {
   let totalAmount = 0;
 
   const orderItemData = data.items.map((item) => {
-    const meal = meals.find((meal) => meal.id === item.mealId);
+    const meal = meals.find((meal:any) => meal.id === item.mealId);
     if (!meal) {
       throw new Error("Meal not found");
     }
@@ -37,7 +38,7 @@ const createOrder = async (userId: string, data: createOrderPayload) => {
     };
   });
 
-  const result = await prisma.$transaction(async (tx) => {
+  const result = await prisma.$transaction(async (tx:any) => {
     const order = await tx.order.create({
       data: {
         userId,

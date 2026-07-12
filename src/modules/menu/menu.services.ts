@@ -1,5 +1,5 @@
-import { MealWhereInput } from "../../../generated/prisma/models";
-import { prisma } from "../../lib/prisma";
+import { MealWhereInput } from "../../../generated/prisma/models.js";
+import { prisma } from "../../lib/prisma.js";
 
 interface CreateMealPayload {
   name: string;

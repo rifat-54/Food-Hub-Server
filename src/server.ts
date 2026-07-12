@@ -1,6 +1,8 @@
 import "dotenv/config";
-import app from "./app";
-import { prisma } from "./lib/prisma";
+import app from "./app.js";
+import { prisma } from "./lib/prisma.js";
+// import app from "./app";
+// import { prisma } from "./lib/prisma";
 
 const port = process.env.PORT || 5000;
 
@@ -16,9 +18,6 @@ async function main() {
     process.exit(1);
   }
 }
-// process.on("SIGINT", async () => {
-//   await prisma.$disconnect();
-//   process.exit(0);
-// });
+
 
 main();

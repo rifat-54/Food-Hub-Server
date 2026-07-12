@@ -1,8 +1,9 @@
 import { betterAuth, string } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 // If your Prisma file is located elsewhere, you can change the path
-import { prisma } from "./prisma";
+// import { prisma } from "./prisma";
 import { oAuthProxy } from "better-auth/plugins";
+import { prisma } from "./prisma.js";
 
 export enum UserRole {
   USER = "USER",
@@ -13,12 +14,11 @@ export enum UserRole {
 console.log("BETTER_AUTH_URL:", process.env.BETTER_AUTH_URL);
 console.log("APP_URL:", process.env.APP_URL);
 
-
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
-  baseURL:process.env.BETTER_AUTH_URL!,
+  baseURL: process.env.BETTER_AUTH_URL!,
   trustedOrigins: [
     "https://food-hub-client-iota.vercel.app",
     "http://localhost:3000",
@@ -55,6 +55,12 @@ export const auth = betterAuth({
     },
   },
 
+  // advanced: {
+  //   defaultCookieAttributes: {
+  //     secure: true,
+  //     sameSite: "none",
+  //   },
+  // },
 
   // account: { skipStateCookieCheck: true }, // solved redirect issue
   advanced: {

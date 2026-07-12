@@ -1,6 +1,6 @@
 import { Request,Response,NextFunction } from "express";
 
-import { auth as betterAuth } from "../lib/auth";
+import { auth as betterAuth } from "../lib/auth.js";
 
 
 export enum userRole{

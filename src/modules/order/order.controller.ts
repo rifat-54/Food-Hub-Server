@@ -1,6 +1,6 @@
 import { Request,Response,NextFunction } from "express";
-import { orderServices } from "./order.services";
-import { userRole } from "../../middleware/auth";
+import { orderServices } from "./order.services.js";
+import { userRole } from "../../middleware/auth.js";
 
 type User={
     role:string,

@@ -1,5 +1,5 @@
-import { UserRole } from "../../lib/auth";
-import { prisma } from "../../lib/prisma";
+import { UserRole } from "../../lib/auth.js";
+import { prisma } from "../../lib/prisma.js";
 
 interface createProviderPayload {
   restaurantName: string;

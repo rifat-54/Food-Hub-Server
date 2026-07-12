@@ -1,5 +1,5 @@
 import { NextFunction, Request,Response } from "express"
-import { menuServices } from "./menu.services";
+import { menuServices } from "./menu.services.js";
 
 
 const createMenu=async(req:Request,res:Response,next:NextFunction) =>{

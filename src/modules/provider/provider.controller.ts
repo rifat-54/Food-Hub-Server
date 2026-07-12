@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { providerServices } from "./provider.services";
+import { providerServices } from "./provider.services.js";
 
 const createProvider = async (
   req: Request,
