@@ -39,9 +39,25 @@ export declare const auth: import("better-auth").Auth<{
         };
     };
     advanced: {
-        defaultCookieAttributes: {
-            secure: true;
-            sameSite: "none";
+        cookies: {
+            session_token: {
+                name: string;
+                attributes: {
+                    httpOnly: true;
+                    secure: true;
+                    sameSite: "none";
+                    partitioned: true;
+                };
+            };
+            state: {
+                name: string;
+                attributes: {
+                    httpOnly: true;
+                    secure: true;
+                    sameSite: "none";
+                    partitioned: true;
+                };
+            };
         };
     };
     plugins: [{
