@@ -55,36 +55,36 @@ export const auth = betterAuth({
     },
   },
 
-  advanced: {
-    defaultCookieAttributes: {
-      secure: true,
-      sameSite: "none",
-    },
-  },
-
-  // account: { skipStateCookieCheck: true }, // solved redirect issue
   // advanced: {
-  //   cookies: {
-  //     session_token: {
-  //       name: "session_token", // Force this exact name
-  //       attributes: {
-  //         httpOnly: true,
-  //         secure: true,
-  //         sameSite: "none",
-  //         partitioned: true,
-  //       },
-  //     },
-  //     state: {
-  //       name: "session_token", // Force this exact name
-  //       attributes: {
-  //         httpOnly: true,
-  //         secure: true,
-  //         sameSite: "none",
-  //         partitioned: true,
-  //       },
-  //     },
+  //   defaultCookieAttributes: {
+  //     secure: true,
+  //     sameSite: "none",
   //   },
   // },
 
-  // plugins: [oAuthProxy()],
+  // account: { skipStateCookieCheck: true }, // solved redirect issue
+  advanced: {
+    cookies: {
+      session_token: {
+        name: "session_token", // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
+        },
+      },
+      state: {
+        name: "session_token", // Force this exact name
+        attributes: {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          partitioned: true,
+        },
+      },
+    },
+  },
+
+  plugins: [oAuthProxy()],
 });
