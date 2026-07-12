@@ -55,12 +55,12 @@ export const auth = betterAuth({
     },
   },
 
-  // advanced: {
-  //   defaultCookieAttributes: {
-  //     secure: true,
-  //     sameSite: "none",
-  //   },
-  // },
+  advanced: {
+    defaultCookieAttributes: {
+      secure: true,
+      sameSite: "none",
+    },
+  },
 
   // account: { skipStateCookieCheck: true }, // solved redirect issue
   // advanced: {
