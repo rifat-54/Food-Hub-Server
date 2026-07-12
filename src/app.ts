@@ -35,8 +35,16 @@ app.use(
 
 app.all("/api/auth/*splat",async (req, res) => {
   console.log("Cookie:", req.headers.cookie);
-  const dbSession=await prisma.session.findFirst()
-  console.log(dbSession)
+
+  const session=await auth.api.getSession({
+    headers:req.headers as any
+  })
+
+    console.log("BetterAuth Session:", session);
+
+  // const dbSession=await prisma.session.findFirst()
+  // console.log(dbSession)
+
   return toNodeHandler(auth)(req, res);
 });
 
