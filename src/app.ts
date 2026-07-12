@@ -9,6 +9,7 @@ import { auth } from "./lib/auth.js";
 import router from "./routes/index.js";
 import { notFound } from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
+import { prisma } from "./lib/prisma.js";
 
 
 
@@ -32,8 +33,10 @@ app.use(
 
 // app.all("/api/auth/*splat", toNodeHandler(auth));
 
-app.all("/api/auth/*splat", (req, res) => {
+app.all("/api/auth/*splat",async (req, res) => {
   console.log("Cookie:", req.headers.cookie);
+  const dbSession=await prisma.session.findFirst()
+  console.log(dbSession)
   return toNodeHandler(auth)(req, res);
 });
 
