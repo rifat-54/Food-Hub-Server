@@ -38,22 +38,22 @@ app.use(cors({
 
 // better auth
 
-app.all("/api/auth/*", toNodeHandler(auth));
+// app.all("/api/auth/*", toNodeHandler(auth));
 
-// app.all("/api/auth/*",async (req, res) => {
-//   console.log("Cookie:", req.headers.cookie);
+app.all("/api/auth/splat*",async (req, res) => {
+  console.log("Cookie:", req.headers.cookie);
 
-//   const session=await auth.api.getSession({
-//     headers:req.headers as any
-//   })
+  const session=await auth.api.getSession({
+    headers:req.headers as any
+  })
 
-//     console.log("Better app Auth Session:", session);
+    console.log("Better app Auth Session:", session);
 
-//   // const dbSession=await prisma.session.findFirst()
-//   // console.log(dbSession)
+  // const dbSession=await prisma.session.findFirst()
+  // console.log(dbSession)
 
-//   return toNodeHandler(auth)(req, res);
-// });
+  return toNodeHandler(auth)(req, res);
+});
 
 
 
