@@ -1,9 +1,7 @@
-import { betterAuth, string } from "better-auth";
+import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-// If your Prisma file is located elsewhere, you can change the path
-// import { prisma } from "./prisma";
-import { oAuthProxy } from "better-auth/plugins";
 import { prisma } from "./prisma.js";
+import { oAuthProxy } from "better-auth/plugins";
 
 export enum UserRole {
   USER = "USER",
@@ -16,7 +14,7 @@ console.log("APP_URL:", process.env.APP_URL);
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: "postgresql", // or "mysql", "postgresql", ...etc
+    provider: "postgresql",
   }),
   baseURL: process.env.BETTER_AUTH_URL!,
   trustedOrigins: [
@@ -53,37 +51,26 @@ export const auth = betterAuth({
       },
     },
   },
-
-  // advanced: {
-  //   defaultCookieAttributes: {
-  //     secure: true,
-  //     sameSite: "none",
-  //   },
-  // },
-
-  // account: { skipStateCookieCheck: true }, // solved redirect issue
   advanced: {
+    defaultCookieAttributes: {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      // Remove partitioned unless you specifically need it
+      // partitioned: true,
+    },
+    // Correct cookie configuration
     cookies: {
       session_token: {
-        name: "session_token", // Force this exact name
+        name: "better-auth.session_token",
         attributes: {
           httpOnly: true,
-          secure: true,
-          sameSite: "none",
-          partitioned: true,
-        },
-      },
-      state: {
-        name: "session_token", // Force this exact name
-        attributes: {
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-          partitioned: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          // Only use partitioned if you're using Chrome with third-party cookies
+          // partitioned: process.env.NODE_ENV === "production",
         },
       },
     },
   },
-
   plugins: [oAuthProxy()],
 });

@@ -19,14 +19,22 @@ const app = express();
 
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: [
-        process.env.APP_URL!
-    ],
-    credentials: true,
-  }),
-);
+// app.use(
+//   cors({
+//     origin: [
+//         process.env.APP_URL!
+//     ],
+//     credentials: true,
+//   }),
+// );
+
+
+app.use(cors({
+  origin: process.env.APP_URL, // Your Next.js app URL
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+}));
 
 // better auth
 
