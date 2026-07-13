@@ -47,7 +47,7 @@ app.all("/api/auth/*splat",async (req, res) => {
     headers:req.headers as any
   })
 
-    console.log("BetterAuth Session:", session);
+    console.log("Better app Auth Session:", session);
 
   // const dbSession=await prisma.session.findFirst()
   // console.log(dbSession)
