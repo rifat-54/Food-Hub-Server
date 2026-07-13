@@ -40,7 +40,7 @@ app.use(cors({
 
 // app.all("/api/auth/*splat", toNodeHandler(auth));
 
-app.all("/api/auth/*splat",async (req, res) => {
+app.all("/api/auth/*",async (req, res) => {
   console.log("Cookie:", req.headers.cookie);
 
   const session=await auth.api.getSession({
