@@ -9,16 +9,13 @@ export enum UserRole {
   ADMIN = "ADMIN",
 }
 
-console.log("BETTER_AUTH_URL:", process.env.BETTER_AUTH_URL);
-console.log("APP_URL:", process.env.APP_URL);
-
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
-  baseURL: process.env.BETTER_AUTH_URL!,
+  baseURL: process.env.BETTER_AUTH_URL!, // https://food-hub-server-blue.vercel.app
   trustedOrigins: [
-    process.env.APP_URL!
+    process.env.APP_URL!, // https://food-hub-client-iota.vercel.app
   ],
   emailAndPassword: {
     enabled: true,
@@ -53,21 +50,16 @@ export const auth = betterAuth({
   },
   advanced: {
     defaultCookieAttributes: {
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      // Remove partitioned unless you specifically need it
-      // partitioned: true,
+      secure: true,
+      sameSite: "none",
     },
-    // Correct cookie configuration
     cookies: {
       session_token: {
-        name: "better-auth.session_token",
+        name: "session_token",
         attributes: {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-          // Only use partitioned if you're using Chrome with third-party cookies
-          // partitioned: process.env.NODE_ENV === "production",
+          secure: true,
+          sameSite: "none",
         },
       },
     },
