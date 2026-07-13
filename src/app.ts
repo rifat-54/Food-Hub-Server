@@ -38,7 +38,7 @@ app.use(cors({
 
 // better auth
 
-app.all("/api/auth/*", toNodeHandler(auth));
+app.all("/api/auth/*splat", toNodeHandler(auth));
 
 // app.all("/api/auth/*splat",async (req, res) => {
 //   console.log("Cookie:", req.headers.cookie);
