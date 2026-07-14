@@ -30,7 +30,7 @@ app.use(express.json());
 
 
 app.use(cors({
-  origin: process.env.APP_URL, // Your Next.js app URL
+  origin: [process.env.APP_URL!,"http://localhost:3000"], // Your Next.js app URL
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],

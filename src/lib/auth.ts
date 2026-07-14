@@ -15,7 +15,7 @@ export const auth = betterAuth({
   }),
   baseURL: process.env.BETTER_AUTH_URL!, // https://food-hub-server-blue.vercel.app
   trustedOrigins: [
-    process.env.APP_URL!, // https://food-hub-client-iota.vercel.app
+    process.env.APP_URL!,"http://localhost:3000" // https://food-hub-client-iota.vercel.app
   ],
   emailAndPassword: {
     enabled: true,
