@@ -33,7 +33,7 @@ const auth=(...roles:userRole[])=>{
             headers:req.headers
         })
         
-        console.log("auth called", session)
+        // console.log("auth called", session)
 
         if(!session){
             return res.status(401).json({
