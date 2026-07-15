@@ -1,48 +1,45 @@
 # 🍱 FoodHub Server
 
-FoodHub Server is the backend REST API for the FoodHub meal ordering platform. It provides secure authentication, role-based authorization, meal management, order processing, category management, provider management, and user administration.
+FoodHub Server is the backend REST API for the FoodHub meal ordering platform. It powers authentication, authorization, meal management, order processing, category management, provider management, and user administration.
 
-The backend is built with **Node.js**, **Express.js**, **PostgreSQL**, **Prisma ORM**, and **Better Auth**.
+Built with **Node.js**, **Express.js**, **PostgreSQL**, **Prisma ORM**, and **Better Auth**, the server provides secure session-based authentication and role-based access control for Customers, Providers, and Admins.
 
 ---
 
-# 🌐 Live API
+## 🌐 Live Links
 
-Backend API
+### Backend Live
+https://food-hub-server-blue.vercel.app
 
-https://your-backend-url.vercel.app
+### Frontend Live
+https://food-hub-client-iota.vercel.app
 
-Frontend Repository
-
+### Frontend Repository
 https://github.com/rifat-54/Food-Hub-Client
 
-Frontend Live
-
-https://your-frontend-url.vercel.app
-
 ---
 
-# ✨ Features
+# 🚀 Features
 
 ## Authentication
 
 - Email & Password Authentication
 - Google OAuth Login
 - Better Auth
-- Session-based Authentication
-- Secure HTTP-only Cookies
+- Secure Session Authentication
 - Role-based Authorization
+- HTTP-only Cookie Authentication
 
 ---
 
 ## Customer Features
 
-- Register
-- Login
-- Update Profile
+- Register & Login
+- Browse Meals
 - Place Orders
-- View Order History
-- Leave Reviews
+- Track Orders
+- Manage Profile
+- Submit Reviews
 
 ---
 
@@ -52,15 +49,15 @@ https://your-frontend-url.vercel.app
 - Add Meals
 - Update Meals
 - Delete Meals
-- View Orders
+- View Provider Orders
 - Update Order Status
 
 ---
 
 ## Admin Features
 
-- Manage Users
-- Suspend / Activate Users
+- View All Users
+- Activate / Suspend Users
 - Manage Categories
 - View All Orders
 
@@ -85,30 +82,39 @@ https://your-frontend-url.vercel.app
 ```
 src
 │
+├── app.ts
+├── server.ts
+│
 ├── config
+├── constant
 ├── controllers
+├── interfaces
+├── lib
 ├── middleware
 ├── modules
 ├── prisma
 ├── routes
 ├── services
-├── utils
-├── app.ts
-└── server.ts
+├── types
+└── utils
 ```
 
 ---
 
 # 🔐 Authentication
 
-FoodHub uses **Better Auth** for authentication.
+FoodHub uses **Better Auth** with secure session cookies.
 
-Supported authentication methods:
+Supported Authentication Methods
 
 - Email & Password
 - Google Login
 
-Authentication uses secure session cookies and role-based authorization.
+Authorization is implemented using role-based middleware for:
+
+- Customer
+- Provider
+- Admin
 
 ---
 
@@ -118,7 +124,7 @@ Authentication uses secure session cookies and role-based authorization.
 
 - Browse Meals
 - Place Orders
-- Track Orders
+- View Order History
 - Submit Reviews
 
 ---
@@ -135,7 +141,7 @@ Authentication uses secure session cookies and role-based authorization.
 
 - Manage Users
 - Manage Categories
-- View All Orders
+- Monitor Orders
 
 ---
 
@@ -143,11 +149,11 @@ Authentication uses secure session cookies and role-based authorization.
 
 Database
 
-PostgreSQL
+- PostgreSQL (Neon)
 
 ORM
 
-Prisma ORM
+- Prisma ORM
 
 Main Models
 
@@ -189,16 +195,6 @@ Main Models
 
 ---
 
-## Categories
-
-| Method | Endpoint |
-|---------|----------|
-| GET | /api/v1/category |
-| POST | /api/v1/category |
-| DELETE | /api/v1/category/:id |
-
----
-
 ## Providers
 
 | Method | Endpoint |
@@ -223,6 +219,16 @@ Main Models
 
 ---
 
+## Categories
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/v1/category |
+| POST | /api/v1/category |
+| DELETE | /api/v1/category/:id |
+
+---
+
 ## Users
 
 | Method | Endpoint |
@@ -244,7 +250,7 @@ Main Models
 
 # ⚙️ Environment Variables
 
-Create a `.env` file.
+Create a `.env` file in the project root.
 
 ```env
 PORT=
@@ -262,7 +268,7 @@ GOOGLE_CLIENT_SECRET=
 
 ---
 
-# 🚀 Installation
+# 💻 Installation
 
 Clone the repository
 
@@ -270,7 +276,7 @@ Clone the repository
 git clone https://github.com/rifat-54/Food-Hub-Server.git
 ```
 
-Go to project directory
+Go to the project directory
 
 ```bash
 cd Food-Hub-Server
@@ -288,7 +294,7 @@ Generate Prisma Client
 npx prisma generate
 ```
 
-Run Database Migration
+Run Migrations
 
 ```bash
 npx prisma migrate dev
@@ -304,7 +310,7 @@ npm run dev
 
 # 📦 Available Scripts
 
-Development
+Start Development
 
 ```bash
 npm run dev
@@ -328,12 +334,6 @@ Generate Prisma Client
 npx prisma generate
 ```
 
-Run Migration
-
-```bash
-npx prisma migrate dev
-```
-
 Open Prisma Studio
 
 ```bash
@@ -344,24 +344,65 @@ npx prisma studio
 
 # 🔒 Security
 
-- Password Hashing
+- Better Auth
 - HTTP-only Cookies
 - Session Authentication
 - Role-based Authorization
 - Input Validation
-- CORS Protection
+- CORS Configuration
+- Secure Password Storage
 
 ---
 
-# 📌 Deployment
+# 🚀 Deployment
 
 Backend
 
-Vercel
+- Vercel
 
 Database
 
-Neon PostgreSQL
+- Neon PostgreSQL
+
+---
+
+# 👤 Demo Accounts
+
+## Admin
+
+Email
+
+```
+admin@gmail.com
+```
+
+Password
+
+```
+Admin@123
+```
+
+---
+
+## Provider
+
+Email
+
+```
+sarahkhan@gamail.com
+```
+
+Password
+
+```
+12345678
+```
+
+---
+
+# 🎥 Demo Video
+
+https://drive.google.com/file/d/1NA3vFvH1xlb8_gfW6MguV7ZgcFX68_ys/view?usp=sharing
 
 ---
 
@@ -372,6 +413,10 @@ Neon PostgreSQL
 GitHub
 
 https://github.com/rifat-54
+
+LinkedIn
+
+https://www.linkedin.com/in/md-mashur-rahaman-rifat-28a61640b
 
 Portfolio
 
